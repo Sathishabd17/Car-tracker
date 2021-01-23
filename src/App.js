@@ -1,25 +1,53 @@
-import logo from './logo.svg';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
+import Papa from 'papaparse';
+import Sort from './Sort';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function parse(file) {
+  return new Promise(function(resolve) {
+    Papa.parse(file, {
+      complete: function(results) {
+        console.log("Finished:", results.data);
+        resolve(results.data);
+      }
+    });
+  });
 }
 
-export default App;
+class FileInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.fileInput = React.createRef();
+  }
+
+  async handleChange(event) {
+    event.preventDefault();
+    let data = await parse(this.fileInput.current.files[0]);
+    data.splice(0, 2);
+    data.pop();
+    console.log(data);
+    ReactDOM.render(
+      <React.StrictMode>
+        <Sort data={data} />
+      </React.StrictMode>,
+      document.getElementById('table')
+    );
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Upload file:
+          <input type="file" ref={this.fileInput} onChange={this.handleChange} />
+        </label>
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+    );
+  }
+}
+
+export default FileInput;

@@ -1,3 +1,55 @@
+  var row = [];
+  let count = 10;
+  for(let i = 0; i < count; i++)
+  {
+    row.push(<tr>
+      <td>S.No.</td>
+      <td>Cloumn 1</td>
+      <td>Cloumn 2</td>
+      <td>Cloumn 3</td>
+      <td>Cloumn 4</td>
+      <td>Cloumn 5</td>
+    </tr>);
+  }
+
+  return (
+    <div>
+    <table>
+    <tbody>
+      <tr>
+        <th>S.No.</th>
+        <th>Cloumn 1</th>
+        <th>Cloumn 2</th>
+        <th>Cloumn 3</th>
+        <th>Cloumn 4</th>
+        <th>Cloumn 5</th>
+      </tr>
+      <tr>
+        <td>S.No.</td>
+        <td>Cloumn 1</td>
+        <td>Cloumn 2</td>
+        <td>Cloumn 3</td>
+        <td>Cloumn 4</td>
+        <td>Cloumn 5</td>
+      </tr>
+      <tr>
+        <td>S.No.</td>
+        <td>Cloumn 1</td>
+        <td>Cloumn 2</td>
+        <td>Cloumn 3</td>
+        <td>Cloumn 4</td>
+        <td>Cloumn 5</td>
+      </tr>
+      {row}
+    </tbody>
+  </table>
+  <FileInput />
+  </div>
+  );
+}
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

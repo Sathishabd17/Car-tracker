@@ -8,7 +8,6 @@ function parse(file) {
   return new Promise(function(resolve) {
     Papa.parse(file, {
       complete: function(results) {
-        console.log("Finished:", results.data);
         resolve(results.data);
       }
     });
@@ -18,16 +17,15 @@ function parse(file) {
 class FileInput extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.fileInput = React.createRef();
   }
 
-  async handleChange(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     let data = await parse(this.fileInput.current.files[0]);
     data.splice(0, 2);
     data.pop();
-    console.log(data);
     ReactDOM.render(
       <React.StrictMode>
         <Sort data={data} />
@@ -38,14 +36,16 @@ class FileInput extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Upload file:
-          <input type="file" ref={this.fileInput} onChange={this.handleChange} />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
+      <div>
+        <form class="mt-3 mb-3 p-2 bg-light shadow rounded text-center" onSubmit={this.handleSubmit}>
+          Upload CSV file to load table <br/>
+          <label class="mb-0 mt-2">
+            Upload file:
+            <input type="file" ref={this.fileInput} className="ml-2" />
+          </label>
+          <button class="btn btn-outline-success">Submit</button>
+        </form>
+      </div>
     );
   }
 }

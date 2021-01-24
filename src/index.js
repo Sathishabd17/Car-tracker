@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import FileInput from './App';
-import Table from './Table';
 
 
 ReactDOM.render(
